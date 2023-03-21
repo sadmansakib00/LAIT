@@ -1,0 +1,465 @@
+To create a directory-
+mkdir dirName
+
+To create a file-
+touch aFile.txt
+
+To go to a directory-
+cd dirName
+
+To check the files in a directory-
+ls
+
+To check all the files including hidden ones in a directory-
+ls -a
+
+To go back from a directory-
+cd ../
+
+To initialize git-
+git init
+
+To check git status-
+git status
+
+To check git status in short-
+git status -s
+
+To add a file or a directory to the staging area-
+git add fileName with extension or dirName
+
+To remove a file from being staged-
+git rm --cached fileName with extension
+
+To commit(adding the files of the staging area to the local repository)-
+git commit
+//Using only commit will open the editor to a add commit message
+//This is useful while adding a commite message of multiple lines
+To commit with a short message -
+git commit -m "commit message"
+
+To see the commit history-
+git log
+
+To see the commit history in a condensed way-
+git log --oneline
+
+To see the commit history in a condensed and relational way-
+git log --oneline --graph
+
+To see the commit history of all the branches-
+git log --oneline --graph --all
+
+
+/*
+git status - view the status of files in the working tree and staging area
+git add - adds untracked or modified files to the staging area
+git commit - creates a snapshot of the current project
+git log - view the commit history
+*/
+
+
+/*
+Have a local repository?			Task
+No? 							clone the remote
+Yes?							add the remote 
+*/
+
+To clone a repository- 
+git clone repository_URL [localProjectName]
+
+//If the localProjectName is not included then the name in the remote repository will be used
+
+
+To add a remote repository to the local repository-
+git remote add <name> <url>
+/*
+If you have something already in the remote repository then you have to pull all the files in 
+the remote repository after adding the remote repository.
+*/
+To do that you have to that you have to use the following command after adding the remote repository-
+git pull origin master --allow-unrelated-histories
+
+
+To see the information about remote repositories associated with the local repositories-
+git remote -v 
+You could also use
+git remote --verbose
+
+
+To push something to the remote repository-
+git push [-u] [<repository>] [<branch>]
+// <repository> can be a name(shortcut like "origin") or URL
+// -u track this branch (--set-upstream)
+/*
+The set upstream or -u option is used to set up a tracking relationship between the local branch and 
+corresponding remote branch. Git can then inform if the branches are out of sync.
+*/
+Example:
+git push -u origin master
+
+
+Changing a remote's URL
+git remote set-url origin newURL
+
+
+To see the details about a commit-
+git show SHA-1 value or reference or shortened value of the SHA-1
+
+
+To see the prior commits of a commit-
+git show reference~how many commits you want to go back and see
+Example:
+git show HEAD~2
+
+
+To see the parents of a particular commit-
+git show reference^the index of the parent you want to see
+Example:
+git show master^2
+//This will show the second parent of the master reference(if there is).
+
+
+To merge the tilda and caret operation-
+git show HEAD~1^2
+
+
+How to undo last git commit with reset-
+git reset --soft HEAD~1
+This will remove the last commit from the git history. However, the changes made to
+the files will remain.
+
+git reset --hard HEAD~1
+This will remove the last commit along with the changes made to the files.
+
+
+To add a tag to a commit-
+git tag <tagname> [<commit>]
+<commit> defaults to HEAD
+Example:
+git tag v1.0 HEAD
+
+
+To see the tags-
+git tag
+
+
+To create a annotated tag-
+git tag -a [-m <msg> | -F <file>] <tagname> [<commit>]
+<commit> defaults to HEAD
+Example:
+git tag -a -m "A message" v2.0 master
+
+
+To see the tag information-
+git show tagName
+
+
+//	"git push" does not automatically transfer tags to the remote repository.
+To transer a single tag
+git push <remote> <tagname>
+To transfer all of the tags-
+git push <remote> --tags
+
+
+To delete a tag-
+git tag -d tagName
+
+
+/*					BRANCH					*/
+
+To see the branches-
+git branch
+//Current working branch has an asterisk before it
+
+To see local and remote tracking branches-
+git branch -a
+
+
+To create a branch off of the current commit-
+git branch branchName
+
+
+To delete a branch-
+git branch -d branchName
+//This won't delete a branch if there some unmerged commits
+
+
+To delete a branch with unmerged commits-
+git branch -D branchName
+//However this will only delete the branch but the unmerged commits will remain dangling
+//The git will periodically look for older dangling commits and delete them.
+
+
+To undo an accidental branch delete-
+git reflog
+//This will return a local list of recent HEAD commits
+//From there we would have to copy the SHA-1 value of the dangling commit
+//Then we can create a new branch over that commit and start working
+git checkout -b branchName [SHA-1 value]
+//Or we could checkout to the dangling commit and then create a branch over it
+git checkout Dangling_SHA1_Value
+git switch -c branchName
+
+
+/*					CHECKOUT				*/
+
+To checkout a branch/commit-
+git checkout <branch_or_commit>
+Examples:
+git checkout tempBranch/SHA-1 value of the commit
+git checkout HEAD~1
+git checkout HEAD^2
+
+
+To create a branch and checking it out-
+git checkout -b branchName
+//This will only work while creating a NEW branch
+//The -b option combines two commands(git branch and git checkout)
+
+
+		/*			Important points about BRANCH and CHECKOUT			*/ 
+/*
+	A branch is a set of commits that trace back to the project's first commit
+	Creating a branch creates branch label
+	Checkout involves updating HEAD and updating the working tree
+	A detached HEAD reference points directly to a commit
+	Deleting a branch deletes a branch label
+	Dangling commits will eventually be garbage collected
+	To work on a detached HEAD or a dangling commit, we need to create a branch over it
+*/
+
+
+/*					MERGE					*/
+
+/*
+	There are mainly four types of merges-
+	1. Fast-forward merge:
+		In fast-forward merge, the base branch label is to moved to the tip of the topic
+		branch. Fast-forward merge is only possible if there no commits were made to the base
+		branch after the topic branch was created.
+	2. Merge commit
+		The merge commit combines the commits at the tip of the merged branches and places 
+		the result in the merge commit. A merge commit always has multiple parents. If both
+		branches change the same thing in different ways, then there might be merge conflict.
+	3. Squash merge
+	4. Rebase
+*/
+
+
+To perform a fast-forward merge-
+git checkout baseBranch
+git merge topicBranch
+git branch -d topicBranch
+//We can delete topicBranch label since the commits of that branch is merged now
+
+
+To perform a merge commit-
+git checkout baseBranch
+git merge topicBranch
+//This will open an enditor showing a default merge message. Which can be changed if one feels like to
+git branch -d topicBranch
+//We can delete topicBranch label since the commits of that branch is merged now
+/*
+	git first tries to apply a fast-forward merge... but if it's not possible to do so then
+	git applies merge commit.
+*/
+
+
+To perform a merge commit even if it's possible to apply fast-forward merge-
+git checkout baseBranch
+git merge --no-ff topicBranch
+git branch -d topicBranch
+
+
+
+/*						Resolving Merge Conflicts					*/
+Different parts of particular file is called "HUNKS"
+The tip of the current branch is called "OURS" or "MINE"
+The tip of the branch to be merged - "theirs"
+A common ancestor is called "MERGE BASE"
+
+When particular HUNK is edited from different branches and then we try to merge those branches
+the merge conflict occurs.
+After we've tried to merge the two branches for the first time, the git will add some texts
+in the respective file about where the conflict occured.
+Example:
+Hello world
+
+
+<<<<<<< HEAD
+Yooo!! I'm being edited from the master branch!!!
+=======
+I'm being edited from newBranch! Muhahaha!
+>>>>>>> newBranch
+
+
+Steps to resolve a merge conflict
+	1. Checkout master
+	2. Merge newBranch
+		> CONFLICT - Both modified fileOne.txt
+	3. Fix fileOne.txt
+	4. Stage fileOne.txt
+	5. Commit the merge commit
+	6. Delete the newBranch branch label
+	
+
+
+/*						TRACKING BRANCH						*/
+A tracking branch is a local branch that represents a remote branch.
+These are named <remote>/<branch>
+For example, origin/master
+Tracking can be out of sync with local branches
+Updated with network commands like clone, fetch, pull and push
+
+Changing remote/origin/head
+git remote set-head <remote> <branch>
+
+Example:
+git remote set-head origin branchName
+
+Keeping this tracking branch head would allow us to use only "origin" to check
+the informations about tracking branch and do other stuffs.
+
+
+
+/*					FETCH, PULL and PUSH					*/
+
+Network commands-
+	1. Clone - Copies a remote repository
+	2. Fetch - Retrieves new objects and references from the remote repository
+	3. Pull  - Fetches and merges commits locally
+	4. Push  - Adds new objects and references to the remote repository
+	
+Git fetch command-
+git fetch <repository>
+Example:
+git fetch origin
+
+
+Git pull command-
+git pull [<repository>] [<branch>]
+Example:
+git pull origin master
+
+Git pull merging options
+	1. --ff(default) -fast-forward if possible, otherwise perform a merge commit
+	2. --no-ff - always include a merge commit
+	3. --ff-only - cancel instead of doing a merge commit
+	4. --rebase [--preserve-merges]
+
+Git will abort merging if there's any kind of merging conflict.
+
+
+
+Git push command-
+git push [-u] [<repository>] [<branch>]
+	-->  -u Track the branch (--set-upstream)
+Example:
+git push -u origin master
+
+Fetching or pulling before pushing is suggested.
+If one tries to push when he doesn't have the latest remote changes then
+the push will fail.
+
+
+/*						REBASING						*/
+General rule: Do not rewrite history that has been shared with others.
+There are two types of rebase:
+	1. Rebase:
+		A rebase moves commits to a new parent or base. What it basically means is if we needed
+		a merge commit to combine two branches. We could actually change the parent of the other
+		branch to the tip of the base branch. Thus we could apply a fast-forward merge afterward. 
+		Because of the new ancestor chain each of the commits IDs change. When rebasing, git 
+		applies the diffs to the new parent commit.
+		Reapplying commits is a form of merge and is susceptible to merge conflicts. Like we 
+		could edit the same file in two different branches and then applying rebase will lead to
+		merge conflict.
+		
+		Commands for rebase:
+		git rebase <upstream>
+		Changes the parent of the currently checked out branch to <upstream>
+		
+		upstream usually refers the parent branch of the rebased branch.
+		
+		Another command:
+		git rebase <upstream> <branch>
+		Checks out <branch and changes its parent <upstream>
+	
+		Fixing a merge conflict while rebasing
+		git checkout newBranch
+		git rebase master
+		/* A conflict has been detected. */
+		/* Fixing the file that has complications. */
+		git add fileWithComplications.txt
+		git rebase --continue
+		
+		To cancel a rebase when there's a conflict
+		git rebase --abort
+		
+		
+	2. Interactive rebase
+		Interactive rebase lets you edit commits using commands.
+			> The commits can belong to any branch
+			> The commit history is changed. So you might not want to use it where there's
+			  shared commits.
+		git rebase -i <after-this-commit>
+		After running this command an editor will open showing the commits. With "pick" being
+		used by default. We can change "pick" according to our need with other actions such
+		as "reword","edit" and so on.
+		
+
+DIFFS: Git can calculate the difference between two commits. This is known as a diff or a patch.
+
+
+/*					AMENDING A Commit					*/
+You can change the most recent commit:
+	1. Change the commit message
+	2. Change the project files
+This creates a new SHA-1(rewrites history)
+
+To change the most recent commit message-
+git commit --amend -m "Fixed commit message"
+
+We can also modify the staging area and amend a commit. We can also use --no-edit option to
+keep the previous message.
+> EDIT the file
+> Then add to the staging area
+> Then use the following command to edit the most recent commit.
+git commit --amend --no-edit
+
+
+
+/*						SQUASH MERGE					*/
+Squash merge merges the tip of the feature branch into the tip of the base branch.
+	> There is a chance of a merge conflict
+Places the result in the staging area
+A squash merge rewrites the commit history
+
+Performing a squash merge:
+git checkout master
+git merge --squash featureBranch
+git commit -m "commit message"
+git branch -D featureBranch
+
+
+/* 				Some Review				*/
+You can amend the most recent commit's message and/or committed files.
+> It creates a new SHA-1.
+Interactive rebase allows you to rewrite the history of a branch
+A squash reduces multiple commits into a single commit
+
+
+
+/*					PULL REQUESTS					*/
+The ultimate goal of a pull requests is to merge a branch into the project.
+There is two basic repository configurations.
+	1. Single remote repository. A pull request in a single remote repository configuration is
+	   a request to merge a branch of the repository.
+	2. Two or more remote repository. In this configuration, a pull request is a request to merge
+	   a branch from a forked repository into the upstream repository.
+
+
+
+
+
