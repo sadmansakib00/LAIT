@@ -1,0 +1,32 @@
+Queries -
+
+CREATE DATABASE JobApplicationLAIT;
+
+CREATE TABLE Skills (
+    SkillID int NOT NULL AUTO_INCREMENT,
+    SkillName varchar(255),
+    PRIMARY KEY (SkillID)
+);
+
+CREATE TABLE ApplicantInfo (
+    id int NOT NULL AUTO_INCREMENT,
+    IndeedID varchar(255),
+    Name varchar(255),
+    Email varchar(255),
+    Commission varchar(255),
+    datetime_field DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO ApplicantInfo(IndeedID, Name, Email, Commission)
+                    VALUES ('IndeedID', '$name', '$email', '$commission');
+
+
+CREATE TABLE ApplicantSkills (
+    IndeedID varchar(255),
+    Email varchar(255),
+    Skill varchar(255),
+    datetime_field DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO ApplicantSkills (indeedid, email, skill) VALUES ('$indeedid', '$email', '$skills')
