@@ -23,7 +23,7 @@
             $i = 0;
             foreach ($selectedSkills as $skill) {
                 $skills = $skill;
-                echo "<h1>" . $skills . "</h1>";
+                //echo "<h1>" . $skills . "</h1>";
                 $query2 = "INSERT INTO ApplicantSkills (indeedid, email, skill) VALUES ('$indeedid', '$email', '$skills')";
                 if(!(++$i == count($selectedSkills) && $flag == 1)) {
                     mysqli_query($con, $query2);
@@ -32,7 +32,7 @@
         }
         if ($flag == 1) {
             $skills = $_POST['other_skill'];
-            echo "<h1>" . $skills . "</h1>";
+            //echo "<h1>" . $skills . "</h1>";
             $query2 = "INSERT INTO ApplicantSkills (indeedid, email, skill) VALUES ('$indeedid', '$email', '$skills')";
             mysqli_query($con, $query2);
         }
