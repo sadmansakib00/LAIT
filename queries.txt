@@ -30,3 +30,46 @@ CREATE TABLE ApplicantSkills (
 );
 
 INSERT INTO ApplicantSkills (indeedid, email, skill) VALUES ('$indeedid', '$email', '$skills')
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CREATE TABLE SkillsLookup (
+    SkillID int NOT NULL AUTO_INCREMENT,
+    Skill varchar(255),
+    PRIMARY KEY (SkillID)
+);
+ 
+ CREATE TABLE InitialApplicant (
+    CandidateID int NOT NULL AUTO_INCREMENT,
+    IndeedID varchar(50) UNIQUE,
+    CandidateName varchar(100),
+    Education varchar(255),
+	Postcode varchar(50),
+	Email varchar(255) UNIQUE,
+	DateInit DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (CandidateID)
+);
+ 
+ CREATE TABLE Applicant (
+    ApplicantID int NOT NULL AUTO_INCREMENT,
+	CandidateID int UNIQUE,
+    ApplicantName varchar(100),
+    Email varchar(255) UNIQUE,
+    UKPermit varchar(10),
+    UKPermitNote varchar(500),
+    CommissionWork varchar(10),
+    CommissionWorkNote varchar(500),
+	SkillNote varchar(255),
+    DateApply DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ApplicantID),
+	FOREIGN KEY (CandidateID) REFERENCES InitialApplicant(CandidateID)
+);
+
+CREATE TABLE ApplicantSkill (
+    ApplicantID int,
+    SkillID int,
+    PRIMARY KEY (ApplicantID, SkillID),
+    FOREIGN KEY (ApplicantID) REFERENCES Applicant(ApplicantID),
+    FOREIGN KEY (SkillID) REFERENCES SkillsLookup(SkillID)
+);
+

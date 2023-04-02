@@ -1,0 +1,33 @@
+Take form data to database
+Show a link to send to the initial applicant
+
+SEO friendly URL - keyword : {router}
+
+Encryption - SHA ~ Not very important atm
+
+After the data is stored in the initialApplicant, generate this email body.
+Hi [Name],
+You have been pre-selected for this position. Could you visit the following website and complete it:
+https://ma.laitmail.co.uk/applicant/[indeed_id]
+
+Thank you,
+Name.
+
+
+
+
+
+Applicant
+Other skills will go to SkillNote
+
+Permit
+Yes, No, Maybe
+Textbox - always visible
+
+
+Mention ApplicantID in the mail to the admin
+
+
+
+• Manual date input for initialapplicant
+• Generate UUID for initialapplicant in a different column
