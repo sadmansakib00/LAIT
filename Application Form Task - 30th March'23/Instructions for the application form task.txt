@@ -27,3 +27,7 @@ Textbox - always visible
 
 Mention ApplicantID in the mail to the admin
 
+
+
+• Manual date input for initialapplicant
+• Generate UUID for initialapplicant in a different column
