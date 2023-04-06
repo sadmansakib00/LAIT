@@ -3,13 +3,13 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . '/vendor/autoload.php';
 
-require "applicant_validation.php";
+require "router_redirects.php";
 
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     echo "<script>console.log(\"Out here in the open\")</script>";
     $r->addRoute('GET', '/LAIT Form/applicant_form/{id:\d+}', "applicant_validate");
-
+    $r->addRoute('GET', '/LAIT Form/InitialApplicant', "initial_applicant");
 });
 
 // Fetch method and URI from somewhere
@@ -36,7 +36,7 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
-
         call_user_func($handler, $vars);
         break;
 }
+?>

@@ -38,18 +38,21 @@ CREATE TABLE SkillsLookup (
     Skill varchar(255),
     PRIMARY KEY (SkillID)
 );
- 
- CREATE TABLE InitialApplicant (
-    CandidateID int NOT NULL AUTO_INCREMENT,
-    IndeedID varchar(50) UNIQUE,
-    CandidateName varchar(100),
-    Education varchar(255),
-	Postcode varchar(50),
-	Email varchar(255) UNIQUE,
-	DateInit DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+
+CREATE TABLE InitialApplicant (
+    CandidateID INT NOT NULL AUTO_INCREMENT,
+    UUID CHAR(36) NOT NULL DEFAULT UUID(),
+    IndeedID VARCHAR(50) UNIQUE,
+    CandidateName VARCHAR(100),
+    Education VARCHAR(255),
+    Postcode VARCHAR(50),
+    Email VARCHAR(255) UNIQUE,
+    DateInit DATE,
     PRIMARY KEY (CandidateID)
 );
- 
+
+
  CREATE TABLE Applicant (
     ApplicantID int NOT NULL AUTO_INCREMENT,
 	CandidateID int UNIQUE,
@@ -72,4 +75,3 @@ CREATE TABLE ApplicantSkill (
     FOREIGN KEY (ApplicantID) REFERENCES Applicant(ApplicantID),
     FOREIGN KEY (SkillID) REFERENCES SkillsLookup(SkillID)
 );
-

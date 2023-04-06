@@ -1,28 +1,3 @@
-<?php
-    // session_start();
-    // if(isset($_GET['CandidateID'])) {
-    //     $_SESSION['CandidateID'] = $_GET['CandidateID'];
-    //     //echo "<h1>". $_SESSION['CandidateID'] . "</h1>";
-    //     $CandidateID = $_SESSION['CandidateID'];
-    //     $con = mysqli_connect("localhost", "root", "", "lait_hr");
-    //     if($con) {
-    //         $query = "SELECT COUNT(*) AS count FROM Applicant WHERE CandidateID = $CandidateID";
-    //         $result = mysqli_query($con, $query);
-    //         $row =  $result->fetch_assoc();
-    //         //echo "<h1>" . $row["count"] . "</h1>";
-    //         if($row["count"] > 0) {
-    //             echo "<h1 style=\"text-align: center; font-size: 5em;\">You have already applied!!!</h1>";
-    //             exit();
-    //         }
-    //     } else {
-    //         echo "Connection error!";
-    //     }
-    // } else {
-    //     echo "<h1 style=\"text-align: center; font-size: 5em;\">No session ID set!</h1>";
-    //     exit();
-    // }
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 

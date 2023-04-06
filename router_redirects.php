@@ -20,4 +20,10 @@
         }
         include('applicant_form.php');
     }
+
+    function initial_applicant() {
+        session_start();
+        //header('Location: /LAIT Form/InitialApplicant.php');
+        include("InitialApplicant.php");
+    }
 ?>
