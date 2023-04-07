@@ -8,8 +8,13 @@ require "router_redirects.php";
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     echo "<script>console.log(\"Out here in the open\")</script>";
-    $r->addRoute('GET', '/LAIT Form/applicant_form/{id:\d+}', "applicant_validate");
+    // $r->addRoute('GET', '/LAIT Form/applicant_form/{id:\d+}', "applicant_validate");
+    $r->addRoute('GET', '/LAIT Form/applicant_form/{id:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}}', "applicant_validate");
+    //$r->addRoute('GET', '/LAIT Form/applicant_form.php', "invalid_address");
     $r->addRoute('GET', '/LAIT Form/InitialApplicant', "initial_applicant");
+
+
+    //$r->addRoute('GET', '/{any:.*}', "invalid_address");
 });
 
 // Fetch method and URI from somewhere

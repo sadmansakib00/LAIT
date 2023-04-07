@@ -11,9 +11,10 @@ if($con) {
         $education = $_POST['education'];
         $postcode = $_POST['postcode'];
         $email = $_POST['email'];
+        $date = $_POST['date'];
 
-        $query = "INSERT INTO InitialApplicant(IndeedID, CandidateName, Education, Postcode, Email)
-                    VALUES ('$indeedid','$name','$education','$postcode', '$email')";
+        $query = "INSERT INTO InitialApplicant(IndeedID, CandidateName, Education, Postcode, Email, DateInit)
+                    VALUES ('$indeedid','$name','$education','$postcode', '$email', '$date')";
         //$query1 = "INSERT INTO ApplicantInfo (indeedid, name, email, commission) VALUES ('$indeedid', '$name', '$email', '$commission')";
 
         if(mysqli_query($con, $query)) {

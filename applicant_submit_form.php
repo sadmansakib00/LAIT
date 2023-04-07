@@ -3,11 +3,12 @@
 
     //Connecting to database
     $con = mysqli_connect("localhost", "root", "", "lait_hr");
-
+    $var_dump("here I am");
     if($con) {
         if (isset($_POST['submit'])) {
             //Indeed id given as global variable
             $candidateid = $_SESSION['CandidateID'];
+            $var_dump($candidateid);
             $name = mysqli_real_escape_string($con, $_POST['name']);
             $email = mysqli_real_escape_string($con, $_POST['email']);
             $commission = mysqli_real_escape_string($con, $_POST['commission']);
