@@ -35,7 +35,13 @@
             echo "Connection error!";
         }
         include('applicant_form.php');
+        //header('Location: /lait_form/applicant_form.php');
     }
+
+    // function applicant_submit() {
+    //     var_dump("in applicant_submit function");
+    //     header('Location: /lait_form/applicant_submit_form.php');
+    // }
 
     function initial_applicant() {
         session_start();

@@ -8,10 +8,18 @@ require "router_redirects.php";
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     echo "<script>console.log(\"Out here in the open\")</script>";
+
+    // Define routes for GET requests
+    
     // $r->addRoute('GET', '/lait_form/applicant_form/{id:\d+}', "applicant_validate");
     $r->addRoute('GET', '/lait_form/applicant_form/{id:[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}}', "applicant_validate");
     //$r->addRoute('GET', '/lait_form/applicant_form.php', "invalid_address");
     $r->addRoute('GET', '/lait_form/initial_applicant', "initial_applicant");
+
+
+    // // Define route for POST request to handle form submission
+    
+    // $r->addRoute('POST', '/lait_form/applicant_submit', "applicant_submit");
 
 
     //$r->addRoute('GET', '/{any:.*}', "invalid_address");
@@ -26,6 +34,9 @@ $uri = $_SERVER['REQUEST_URI'];
 if (false !== $pos = strpos($uri, '?')) {
     $uri = substr($uri, 0, $pos);
 }
+
+//var_dump($uri);
+
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);

@@ -14,7 +14,7 @@
     <h1 class="text-center mt-4">Apply at LAIT</h1>
 
     <div class="container">
-        <form action="applicant_submit_form.php" method="post">
+        <form action="/lait_form/applicant_submit_form.php" method="post">
             <div class="row justify-content-center">
                 <div class="form-group col-sm-6">
                     <label for="name">Name:</label>
@@ -88,7 +88,7 @@
             </div>
 
             <div class="row justify-content-center">
-                <button type="submit" class="btn btn-primary col-sm-2 mt-3" name="submit">Submit</button>
+                <button type="submit" class="btn btn-primary col-sm-2 mt-3" name="submit" value="submit">Submit</button>
             </div>
 
         </form>
