@@ -1,15 +1,25 @@
 <?php
     function applicant_validate($vars) {
         session_start();
-        //echo "<h1>". $_SESSION['CandidateID'] . "</h1>";
         $UUID = $vars['id'];
         // var_dump($vars['id']);
         $con = mysqli_connect("localhost", "root", "", "lait_hr");
         if($con) {
-            //Get CandidateID from InitialApplicant
+            //Get CandidateID from initial_applicant
             $query = "SELECT CandidateID FROM InitialApplicant WHERE UUID = '$UUID'";
             $result = mysqli_query($con, $query);
+
+            //Check if the given UUID is valid
+            if (!$result) {
+                die('Invalid query: ' . mysqli_error($conn));
+            }
+            if (mysqli_num_rows($result) == 0) {
+                echo 'Invalid ID in the URL!';
+                exit();
+            }
+
             $row =  $result->fetch_assoc();
+
             $CandidateID = $row["CandidateID"];
             $_SESSION['CandidateID'] = $CandidateID;
             //Get applicantion count from Applicant table
@@ -29,8 +39,8 @@
 
     function initial_applicant() {
         session_start();
-        //header('Location: /LAIT Form/InitialApplicant.php');
-        include("InitialApplicant.php");
+        //header('Location: /lait_form/initial_applicant.php');
+        include("initial_applicant.php");
     }
 
     function invalid_address() {
