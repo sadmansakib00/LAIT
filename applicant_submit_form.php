@@ -17,7 +17,7 @@
             $commission_note = mysqli_real_escape_string($con, $_POST['commission_note']);
             $skillnote = mysqli_real_escape_string($con, $_POST['other_skill']);
 
-            $query1 = "INSERT INTO Applicant (CandidateID, ApplicantName, Email, UKPermit, UKPermitNote, CommissionWork, CommissionWorkNote, SkillNote)
+            $query1 = "INSERT INTO applicant (CandidateID, ApplicantName, Email, UKPermit, UKPermitNote, CommissionWork, CommissionWorkNote, SkillNote)
                         VALUES ('$candidateid', '$name', '$email', '$ukpermit', '$ukpermit_note', '$commission', '$commission_note', '$skillnote')";
 
             if(mysqli_query($con, $query1)) {
@@ -26,7 +26,7 @@
                 echo "<p>Error: " . $query1 . "<br>" . mysqli_error($con) . "</p>";
             }
 
-            $applicant_id_query = "SELECT ApplicantID FROM Applicant WHERE CandidateID = '$candidateid'";
+            $applicant_id_query = "SELECT ApplicantID FROM applicant WHERE CandidateID = '$candidateid'";
             $result = mysqli_query($con, $applicant_id_query);
             $applicant_id;
             if($result && mysqli_num_rows($result) > 0) {
@@ -42,7 +42,7 @@
                         $flag = 0;
                     $i = 0;
                     foreach ($selectedSkills as $skillid) {
-                        $query2 = "INSERT INTO ApplicantSkill (ApplicantID, SkillID) VALUES ('$applicant_id', '$skillid')";
+                        $query2 = "INSERT INTO applicant_skill (ApplicantID, SkillID) VALUES ('$applicant_id', '$skillid')";
                         if(!(++$i == count($selectedSkills) && $flag == 1)) {
                             mysqli_query($con, $query2);
                         }

@@ -25,7 +25,7 @@ Yes, No, Maybe
 Textbox - always visible
 
 
-Mention ApplicantID in the mail to the admin
+Mention ApplicantID in the mail to the admin - Can't do that. Because only cadidateid is generated at that time.
 
 
 

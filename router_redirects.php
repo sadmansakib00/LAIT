@@ -6,12 +6,12 @@
         $con = mysqli_connect("localhost", "root", "", "lait_hr");
         if($con) {
             //Get CandidateID from initial_applicant
-            $query = "SELECT CandidateID FROM InitialApplicant WHERE UUID = '$UUID'";
+            $query = "SELECT CandidateID FROM initial_applicant WHERE UUID = '$UUID'";
             $result = mysqli_query($con, $query);
 
             //Check if the given UUID is valid
             if (!$result) {
-                die('Invalid query: ' . mysqli_error($conn));
+                die('Invalid query: ' . mysqli_error($con));
             }
             if (mysqli_num_rows($result) == 0) {
                 echo 'Invalid ID in the URL!';
@@ -23,7 +23,7 @@
             $CandidateID = $row["CandidateID"];
             $_SESSION['CandidateID'] = $CandidateID;
             //Get applicantion count from Applicant table
-            $query = "SELECT COUNT(*) AS count FROM Applicant WHERE CandidateID = $CandidateID";
+            $query = "SELECT COUNT(*) AS count FROM applicant WHERE CandidateID = $CandidateID";
             $result = mysqli_query($con, $query);
             $row = $result->fetch_assoc();
             //echo "<h1>" . $row["count"] . "</h1>";

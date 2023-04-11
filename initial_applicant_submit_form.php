@@ -15,22 +15,27 @@ if($con) {
         $email = $_POST['email'];
         $date = $_POST['date'];
 
-        $query = "INSERT INTO InitialApplicant(IndeedID, CandidateName, Education, Postcode, Email, DateInit)
+        $query = "INSERT INTO initial_applicant(IndeedID, CandidateName, Education, Postcode, Email, DateInit)
                     VALUES ('$indeedid','$name','$education','$postcode', '$email', '$date')";
-       
+
         if(mysqli_query($con, $query)) {
             //echo "Data inserted successfully.";
         } else {
             echo "<p>Error: \" . $query . \"<br>\" . mysqli_error($con)</p>";
+            exit();
         }
 
-        var_dump("yo");
-        $$applicant_id_query = "SELECT ApplicantID FROM Applicant WHERE CandidateID = '$candidateid'";
-        $result = mysqli_query($con, $applicant_id_query);
-        $applicant_id = $data['ApplicantID'];
+        // Getting the candidateid for the recent input
+        $candidateid = mysqli_insert_id($con); // Get the last auto-generated ID
+        $applicant_query = "SELECT * FROM initial_applicant WHERE candidateid = '$candidateid'";
+        $result = mysqli_query($con, $applicant_query);
+        $data = mysqli_fetch_assoc($result); // Get the entire last inserted row
+        $uuid = $data['UUID'];
+
+        var_dump($name, $candidateid, $uuid);
 
         mysqli_close($con);
-        header('Location: /lait_form/initial_applicant_mail.php?applicant_id=' . $applicant_id . '&name=' . $name);
+        header('Location: /lait_form/generate_url_initial_applicant.php?candidateid=' . $candidateid . '&uuid=' . $uuid . '&name=' . $name);
     }
 } else {
     echo "Database connection error!";

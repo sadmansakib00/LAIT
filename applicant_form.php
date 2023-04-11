@@ -35,7 +35,7 @@
                     <?php
                         $con = mysqli_connect("localhost", "root", "", "lait_hr");
                         if($con) {
-                            $query = "SELECT skillid, skill FROM SkillsLookup";
+                            $query = "SELECT skillid, skill FROM skills_lookup";
                             $result = mysqli_query($con, $query);
                             $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                             foreach($data as $row) {

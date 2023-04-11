@@ -33,14 +33,16 @@ INSERT INTO ApplicantSkills (indeedid, email, skill) VALUES ('$indeedid', '$emai
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-CREATE TABLE SkillsLookup (
+CREATE DATABASE lait_hr;
+
+CREATE TABLE skills_lookup (
     SkillID int NOT NULL AUTO_INCREMENT,
     Skill varchar(255),
     PRIMARY KEY (SkillID)
 );
 
 
-CREATE TABLE InitialApplicant (
+CREATE TABLE initial_applicant (
     CandidateID INT NOT NULL AUTO_INCREMENT,
     UUID CHAR(36) NOT NULL DEFAULT UUID(),
     IndeedID VARCHAR(50) UNIQUE,
@@ -53,7 +55,7 @@ CREATE TABLE InitialApplicant (
 );
 
 
- CREATE TABLE Applicant (
+ CREATE TABLE applicant (
     ApplicantID int NOT NULL AUTO_INCREMENT,
 	CandidateID int UNIQUE,
     ApplicantName varchar(100),
@@ -65,13 +67,22 @@ CREATE TABLE InitialApplicant (
 	SkillNote varchar(255),
     DateApply DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (ApplicantID),
-	FOREIGN KEY (CandidateID) REFERENCES InitialApplicant(CandidateID)
+	FOREIGN KEY (CandidateID) REFERENCES initial_applicant(CandidateID)
 );
 
-CREATE TABLE ApplicantSkill (
+CREATE TABLE applicant_skill (
     ApplicantID int,
     SkillID int,
     PRIMARY KEY (ApplicantID, SkillID),
-    FOREIGN KEY (ApplicantID) REFERENCES Applicant(ApplicantID),
-    FOREIGN KEY (SkillID) REFERENCES SkillsLookup(SkillID)
+    FOREIGN KEY (ApplicantID) REFERENCES applicant(ApplicantID),
+    FOREIGN KEY (SkillID) REFERENCES skills_lookup(SkillID)
+);
+
+
+CREATE TABLE admin_creds (
+    adminid int NOT NULL AUTO_INCREMENT,
+    username varchar(100) NOT NULL UNIQUE,
+    email varchar(50) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
+    PRIMARY KEY (adminid)
 );
